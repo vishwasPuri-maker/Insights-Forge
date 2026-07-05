@@ -1,0 +1,1 @@
+No hallucinations. No DML. No DDL. No state mutations.

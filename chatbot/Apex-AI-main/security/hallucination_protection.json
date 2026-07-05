@@ -1,0 +1,22 @@
+{
+  "hallucination_protection": {
+    "source_validation": {
+      "require_explicit_evidence": true,
+      "reject_fabricated_metrics": true,
+      "cross_reference_mode": "strict"
+    },
+    "evidence_validation": {
+      "minimum_citations_required": 1,
+      "allow_assumptions": false,
+      "validate_timeframes": true
+    },
+    "confidence_rules": {
+      "enforce_unknown_on_missing_data": true,
+      "minimum_acceptable_confidence": 0.70
+    },
+    "uncertainty_rules": {
+      "explicitly_state_missing_data": true,
+      "prohibit_guessing": true
+    }
+  }
+}

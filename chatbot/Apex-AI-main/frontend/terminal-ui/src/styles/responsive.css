@@ -1,0 +1,38 @@
+/* Responsive Layout Rules */
+
+/* Desktop > 1200px (Default is handled in terminal.css as 2 column) */
+
+/* Tablet 768px - 1200px */
+@media (max-width: 1200px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  
+  .right-panels {
+    flex-direction: row;
+  }
+  
+  .activity-panel, .whats-new-panel {
+    flex: 1;
+  }
+}
+
+/* Mobile < 768px */
+@media (max-width: 768px) {
+  .window {
+    width: 95vw;
+    height: 90vh;
+  }
+  
+  .right-panels {
+    flex-direction: column;
+  }
+  
+  .terminal {
+    padding: 15px;
+  }
+  
+  .welcome-panel {
+    padding: 15px;
+  }
+}

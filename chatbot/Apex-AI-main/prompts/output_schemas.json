@@ -1,0 +1,165 @@
+{
+  "universal_output_schema": {
+    "type": "object",
+    "required": ["status", "analysis_type", "summary", "confidence"],
+    "properties": {
+      "status": {"type": "string", "enum": ["success", "error", "partial"]},
+      "analysis_type": {
+        "type": "string",
+        "enum": [
+          "kpi_analysis",
+          "trend_analysis",
+          "forecasting",
+          "anomaly_detection",
+          "executive_summary",
+          "dashboard_explanation",
+          "recommendation",
+          "comparative_analysis"
+        ]
+      },
+      "summary": {"type": "string"},
+      "insights": {"type": "array", "items": {"type": "string"}},
+      "recommendations": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+      "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+      "confidence_level": {
+        "type": "string",
+        "enum": ["VERY_HIGH", "HIGH", "MEDIUM", "LOW", "VERY_LOW", "UNKNOWN"]
+      },
+      "limitations": {"type": "array", "items": {"type": "string"}},
+      "sources": {"type": "array", "items": {"type": "string"}},
+      "warnings": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "kpi_analysis_schema": {
+    "type": "object",
+    "required": ["metric", "current_value", "trend", "confidence"],
+    "properties": {
+      "metric": {"type": "string"},
+      "current_value": {"type": "number"},
+      "previous_value": {"type": "number"},
+      "variance": {"type": "string"},
+      "trend": {"type": "string", "enum": ["positive", "negative", "stable"]},
+      "growth_rate": {"type": "string"},
+      "business_impact": {"type": "string", "enum": ["high", "medium", "low"]},
+      "risk_assessment": {"type": "string"}
+    }
+  },
+  "trend_analysis_schema": {
+    "type": "object",
+    "required": ["trend_direction", "confidence"],
+    "properties": {
+      "trend_direction": {"type": "string", "enum": ["upward", "downward", "stable", "volatile"]},
+      "growth_rate": {"type": "string"},
+      "seasonality_detected": {"type": "boolean"},
+      "seasonality_pattern": {"type": ["string", "null"]},
+      "momentum": {"type": "string", "enum": ["accelerating", "decelerating", "stable"]}
+    }
+  },
+  "forecasting_schema": {
+    "type": "object",
+    "required": ["forecast_horizon", "methodology", "predictions", "confidence"],
+    "properties": {
+      "forecast_horizon": {"type": "string"},
+      "methodology": {"type": "string"},
+      "predictions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "period": {"type": "string"},
+            "predicted_value": {"type": "number"},
+            "lower_bound": {"type": "number"},
+            "upper_bound": {"type": "number"}
+          }
+        }
+      },
+      "assumptions": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "anomaly_detection_schema": {
+    "type": "object",
+    "required": ["metric", "baseline_value", "observed_value", "severity", "confidence"],
+    "properties": {
+      "metric": {"type": "string"},
+      "baseline_value": {"type": "number"},
+      "observed_value": {"type": "number"},
+      "deviation": {"type": "string"},
+      "severity": {"type": "string", "enum": ["minor", "moderate", "severe", "critical"]},
+      "potential_causes": {"type": "array", "items": {"type": "string"}},
+      "risk_level": {"type": "string", "enum": ["low", "medium", "high", "critical"]}
+    }
+  },
+  "executive_summary_schema": {
+    "type": "object",
+    "required": ["executive_summary", "key_findings", "business_impact", "confidence"],
+    "properties": {
+      "executive_summary": {"type": "string", "maxLength": 600},
+      "key_findings": {"type": "array", "items": {"type": "string"}},
+      "primary_drivers": {"type": "array", "items": {"type": "string"}},
+      "business_impact": {"type": "string", "enum": ["positive", "negative", "neutral"]},
+      "risks": {"type": "array", "items": {"type": "string"}},
+      "opportunities": {"type": "array", "items": {"type": "string"}}
+    }
+  },
+  "dashboard_explanation_schema": {
+    "type": "object",
+    "required": ["dashboard_overview", "key_metrics", "confidence"],
+    "properties": {
+      "dashboard_overview": {"type": "string"},
+      "key_metrics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "metric": {"type": "string"},
+            "value": {"type": "string"},
+            "status": {"type": "string", "enum": ["healthy", "warning", "critical"]}
+          }
+        }
+      }
+    }
+  },
+  "recommendation_schema": {
+    "type": "object",
+    "required": ["problem_statement", "primary_recommendation", "confidence"],
+    "properties": {
+      "problem_statement": {"type": "string"},
+      "evidence_summary": {"type": "string"},
+      "options": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "option": {"type": "string"},
+            "tradeoff": {"type": "string"},
+            "expected_impact": {"type": "string"}
+          }
+        }
+      },
+      "primary_recommendation": {"type": "string"},
+      "priority": {"type": "string", "enum": ["critical", "high", "medium", "low"]}
+    }
+  },
+  "comparative_analysis_schema": {
+    "type": "object",
+    "required": ["comparison_scope", "metrics_compared", "confidence"],
+    "properties": {
+      "comparison_scope": {"type": "string"},
+      "subjects": {"type": "array", "items": {"type": "string"}},
+      "metrics_compared": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "metric": {"type": "string"},
+            "subject_a_value": {"type": "number"},
+            "subject_b_value": {"type": "number"},
+            "absolute_diff": {"type": "number"},
+            "percentage_diff": {"type": "string"}
+          }
+        }
+      },
+      "primary_drivers": {"type": "array", "items": {"type": "string"}}
+    }
+  }
+}

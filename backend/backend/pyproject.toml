@@ -1,0 +1,28 @@
+[project]
+name = "insights-forge-backend"
+version = "1.0.0"
+description = "AI Powered Business Intelligence Backend"
+requires-python = ">=3.13"
+
+authors = [
+    { name = "Shlok Yadav" }
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

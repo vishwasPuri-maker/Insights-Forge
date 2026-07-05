@@ -1,0 +1,42 @@
+{
+  "schema_rules": {
+    "require_all_mandatory_fields": true,
+    "prohibit_additional_fields": false,
+    "enforce_data_types": true,
+    "max_response_length_chars": 8000
+  },
+  "confidence_rules": {
+    "score_boundaries": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "score_to_level_mapping": [
+      { "threshold": 0.95, "level": "VERY_HIGH" },
+      { "threshold": 0.85, "level": "HIGH" },
+      { "threshold": 0.70, "level": "MEDIUM" },
+      { "threshold": 0.50, "level": "LOW" },
+      { "threshold": 0.20, "level": "VERY_LOW" },
+      { "threshold": 0.0, "level": "UNKNOWN" }
+    ],
+    "require_explanation_if_below_high": true
+  },
+  "safety_rules": {
+    "sql_blocking": {
+      "block_dml": true,
+      "block_ddl": true,
+      "allow_select": true,
+      "allow_cte": true
+    },
+    "injection_blocking": {
+      "block_system_prompt_leaks": true,
+      "block_role_overrides": true
+    }
+  },
+  "audit_rules": {
+    "require_request_id": true,
+    "require_session_id": true,
+    "log_latency": true,
+    "log_tokens": true,
+    "require_citations_for_claims": true
+  }
+}

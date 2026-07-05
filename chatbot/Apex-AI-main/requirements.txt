@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+streamlit
+ollama
+langchain
+langgraph
+chromadb
+sentence-transformers
+pydantic
+pandas
+numpy
+sqlalchemy
+pytest
+python-dotenv
+tiktoken

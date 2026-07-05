@@ -1,0 +1,241 @@
+supported_operations:
+  descriptive_analytics:
+    capabilities:
+      - capability_id: "DESC_001"
+        capability_name: "KPI & Metric Analysis"
+        description: "Analyze historical performance metrics, dashboards, and benchmarks."
+        confidence_level: "HIGH"
+        complexity: "LOW"
+        priority: "P1"
+        examples:
+          - "What were our top performing regions?"
+          - "Explain monthly revenue trends."
+          - "Compare current quarter performance."
+  diagnostic_analytics:
+    capabilities:
+      - capability_id: "DIAG_001"
+        capability_name: "Root Cause & Anomaly Investigation"
+        description: "Investigate performance deviations, anomalies, and correlations."
+        confidence_level: "MEDIUM"
+        complexity: "HIGH"
+        priority: "P1"
+        examples:
+          - "Why did sales decline?"
+          - "What caused churn increase?"
+  predictive_analytics:
+    capabilities:
+      - capability_id: "PRED_001"
+        capability_name: "Forecasting & Scenario Modeling"
+        description: "Estimate future demand, predict trends, and model scenarios."
+        confidence_level: "LOW"
+        complexity: "HIGH"
+        priority: "P2"
+        examples:
+          - "Forecast revenue growth."
+          - "Predict customer churn."
+  prescriptive_analytics:
+    capabilities:
+      - capability_id: "PRES_001"
+        capability_name: "Strategic Recommendations"
+        description: "Provide optimization suggestions and action prioritization."
+        confidence_level: "LOW"
+        complexity: "VERY_HIGH"
+        priority: "P3"
+        examples:
+          - "How can conversion improve?"
+          - "What actions reduce churn?"
+  statistical_analytics:
+    capabilities:
+      - capability_id: "STAT_001"
+        capability_name: "Statistical Summaries"
+        description: "Calculate averages, distributions, variance, and regression."
+        confidence_level: "HIGH"
+        complexity: "MEDIUM"
+        priority: "P1"
+        examples:
+          - "What is the variance in Q2 sales?"
+
+unsupported_operations:
+  database_operations:
+    operations: ["INSERT", "UPDATE", "DELETE", "ALTER", "CREATE", "DROP", "TRUNCATE", "MERGE", "UPSERT", "REPLACE"]
+    category: "DML/DDL"
+    severity: "CRITICAL"
+    rejection_response: "I am a read-only assistant and cannot modify database state."
+    escalation_policy: "TERMINATE_SESSION_AND_AUDIT"
+  administrative_operations:
+    operations: ["User Management", "Permissions", "Database Configuration", "Server Configuration"]
+    category: "Infrastructure/Admin"
+    severity: "CRITICAL"
+    rejection_response: "I do not have administrative privileges to perform system configuration."
+    escalation_policy: "LOG_WARNING"
+  development_operations:
+    operations: ["Code Deployment", "Pipeline Execution", "Schema Migration"]
+    category: "DevOps"
+    severity: "HIGH"
+    rejection_response: "I cannot execute development pipelines or migrations."
+    escalation_policy: "LOG_WARNING"
+  security_operations:
+    operations: ["Credential Access", "Privilege Escalation", "Security Bypass", "Secret Retrieval"]
+    category: "Security"
+    severity: "CRITICAL"
+    rejection_response: "Security violation detected. Request denied."
+    escalation_policy: "TRIGGER_SECURITY_ALERT"
+
+allowed_queries:
+  business_questions:
+    category: "Contextual Business Inquiry"
+    confidence_threshold: "MEDIUM"
+    processing_agent: "Business Intelligence Agent"
+    validation_rules: ["Must map to known semantic entities"]
+    expected_output: "Narrative summary with supporting data"
+  kpi_questions:
+    category: "Metric Evaluation"
+    confidence_threshold: "HIGH"
+    processing_agent: "Data Retrieval Agent"
+    validation_rules: ["Must reference valid KPI catalog"]
+    expected_output: "Statistical response with trend indicators"
+  dashboard_questions:
+    category: "Visual Interpretation"
+    confidence_threshold: "HIGH"
+    processing_agent: "Visualization Interpretation Agent"
+    validation_rules: ["Dashboard ID must be active in context"]
+    expected_output: "Section-by-section metric breakdown"
+  executive_questions:
+    category: "Strategic Overview"
+    confidence_threshold: "MEDIUM"
+    processing_agent: "Executive Summary Agent"
+    validation_rules: ["Requires cross-departmental aggregation"]
+    expected_output: "High-level bulleted brief"
+  analytical_questions:
+    category: "Deep-dive Analysis"
+    confidence_threshold: "MEDIUM"
+    processing_agent: "Statistical Engine Agent"
+    validation_rules: ["Sufficient data variance must exist"]
+    expected_output: "Detailed correlation and segmentation report"
+
+prohibited_queries:
+  data_modification:
+    category: "DML Generation"
+    severity: "CRITICAL"
+    detection_strategy: "Regex / LLM Intent Classification (Delete, Update, Insert)"
+    refusal_message: "Action forbidden: Read-only access enforced."
+    audit_flag: true
+  schema_modification:
+    category: "DDL Generation"
+    severity: "CRITICAL"
+    detection_strategy: "Regex / LLM Intent Classification (Create, Drop, Alter)"
+    refusal_message: "Action forbidden: Schema mutations are blocked."
+    audit_flag: true
+  administrative_requests:
+    category: "IAM Mutations"
+    severity: "CRITICAL"
+    detection_strategy: "Keyword matching (grant, revoke, create user)"
+    refusal_message: "Action forbidden: Administrative requests require human intervention."
+    audit_flag: true
+  security_requests:
+    category: "Authentication Bypass"
+    severity: "CRITICAL"
+    detection_strategy: "Heuristics and Jailbreak detection"
+    refusal_message: "Action forbidden: Security constraints triggered."
+    audit_flag: true
+  internal_system_requests:
+    category: "System Prompt Extraction"
+    severity: "HIGH"
+    detection_strategy: "Prompt injection classifiers"
+    refusal_message: "I cannot reveal my internal instructions."
+    audit_flag: true
+
+business_intelligence:
+  domains:
+    - name: "Executive Analytics"
+      supported_metrics: ["KPI monitoring", "Strategic reporting"]
+      confidence_score: 0.95
+    - name: "Financial Intelligence"
+      supported_metrics: ["Revenue analysis", "Profitability"]
+      confidence_score: 0.90
+    - name: "Sales Intelligence"
+      supported_metrics: ["Pipeline analysis", "Conversion analysis"]
+      confidence_score: 0.85
+    - name: "Marketing Intelligence"
+      supported_metrics: ["Campaign analysis", "Attribution"]
+      confidence_score: 0.80
+    - name: "Operational Intelligence"
+      supported_metrics: ["Process efficiency", "Resource utilization"]
+      confidence_score: 0.85
+    - name: "Customer Intelligence"
+      supported_metrics: ["Retention analysis", "Churn analysis"]
+      confidence_score: 0.90
+
+summarization:
+  executive_summaries:
+    summary_depth: "High-level"
+    token_limits: 500
+    executive_style: "Direct, metric-driven, bulleted"
+    confidence_scoring: "Mandatory"
+  dashboard_summaries:
+    summary_depth: "Widget-level breakdown"
+    token_limits: 800
+    executive_style: "Descriptive"
+    confidence_scoring: "Optional"
+  trend_summaries:
+    summary_depth: "Time-series contextual"
+    token_limits: 600
+    executive_style: "Comparative"
+    confidence_scoring: "Mandatory"
+  comparative_summaries:
+    summary_depth: "Variance focused"
+    token_limits: 600
+    executive_style: "Analytical"
+    confidence_scoring: "Mandatory"
+  performance_summaries:
+    summary_depth: "Goal vs Actual"
+    token_limits: 400
+    executive_style: "Evaluative"
+    confidence_scoring: "Mandatory"
+
+visualization:
+  charts:
+    supported_features: ["Line charts", "Bar charts", "Scatter plots", "Histograms", "Area charts"]
+    interpretation_methods: ["Trend slope analysis", "Outlier detection", "Distribution spread"]
+    explanation_depth: "Detailed statistical"
+    confidence_rules: "Requires >80% visual-to-text mapping confidence"
+  business_visualizations:
+    supported_features: ["KPI cards", "Scorecards", "Funnels", "Heatmaps"]
+    interpretation_methods: ["Threshold comparison", "Conversion drop-off"]
+    explanation_depth: "High-level business impact"
+    confidence_rules: "Requires structured underlying JSON data"
+  analytical_visualizations:
+    supported_features: ["Cohort analysis", "Correlation matrices", "Forecasting graphs"]
+    interpretation_methods: ["Pearson correlation", "Retention decay", "Confidence intervals"]
+    explanation_depth: "Methodological"
+    confidence_rules: "Must state standard error or predictive uncertainty"
+
+interpretation:
+  allowed_reasoning:
+    - "identify trends"
+    - "explain relationships"
+    - "summarize findings"
+    - "calculate metrics"
+    - "estimate forecasts"
+    - "detect anomalies"
+    - "explain visualizations"
+  prohibited_reasoning:
+    - "fabricate causality"
+    - "invent statistics"
+    - "create unsupported conclusions"
+    - "infer missing data"
+    - "generate false confidence"
+    - "speculate without evidence"
+    - "fabricate business outcomes"
+
+confidence_rules:
+  levels:
+    HIGH: ">90% (Deterministic retrieval and factual aggregation)"
+    MEDIUM: "70-90% (Probabilistic insights and multi-hop reasoning)"
+    LOW: "<70% (Forecasts and sparse data extrapolations)"
+    UNKNOWN: "Insufficient evidence to form a conclusion"
+
+safety_rules:
+  uncertainty_protocols: "Always prefix LOW confidence responses with explicitly stated uncertainty."
+  evidence_requirements: "All factual claims must carry a citation to the specific RAG chunk or SQL payload."
+  read_only_enforcement: "Strict parsing of final LLM output prior to rendering to block rogue payloads."

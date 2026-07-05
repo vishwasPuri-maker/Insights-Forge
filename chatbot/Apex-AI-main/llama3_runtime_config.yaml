@@ -1,0 +1,120 @@
+# Apex AI — Llama 3 Instruct Runtime Configuration
+# Production deployment settings for vLLM inference engine
+
+model:
+  name: "meta-llama/Meta-Llama-3-70B-Instruct"
+  supported_variants:
+    - "meta-llama/Meta-Llama-3-8B-Instruct"
+    - "meta-llama/Meta-Llama-3-70B-Instruct"
+    - "meta-llama/Meta-Llama-3.1-8B-Instruct"
+    - "meta-llama/Meta-Llama-3.1-70B-Instruct"
+  quantization: null  # Set to "awq" or "gptq" for quantized variants
+
+runtime:
+  engine: "vLLM"
+  backend: "FastAPI"
+  orchestration: ["LangGraph", "CrewAI", "AutoGen"]
+  streaming: true
+  max_concurrent_requests: 64
+
+tokens:
+  system_tokens:
+    begin_of_text: "<|begin_of_text|>"
+    start_header_system: "<|start_header_id|>system<|end_header_id|>"
+    start_header_user: "<|start_header_id|>user<|end_header_id|>"
+    start_header_assistant: "<|start_header_id|>assistant<|end_header_id|>"
+    end_of_turn: "<|eot_id|>"
+  separators:
+    system: "=== SYSTEM ==="
+    governance: "=== GOVERNANCE ==="
+    context: "=== CONTEXT ==="
+    memory: "=== MEMORY ==="
+    user: "=== USER ==="
+    response: "=== RESPONSE ==="
+
+context:
+  max_context_length: 8192
+  allocation:
+    system: 0.15        # 15% — Identity, mission, role
+    governance: 0.10    # 10% — Safety rules, restrictions
+    safety: 0.10        # 10% — Guardrails, refusal templates
+    agents: 0.15        # 15% — Agent routing, orchestration context
+    rag: 0.25           # 25% — Retrieved analytics context
+    memory: 0.10        # 10% — Conversation history
+    user: 0.15          # 15% — User query and constraints
+  strategies:
+    - "sliding_window"
+    - "hierarchical_memory"
+    - "semantic_compression"
+    - "retrieval_ranking"
+    - "token_budgeting"
+  truncation_rules:
+    priority_order: ["system", "governance", "safety", "user", "rag", "agents", "memory"]
+    truncation_target: "memory"  # Memory is truncated first when budget exceeded
+
+generation:
+  temperature: 0.1
+  top_p: 0.9
+  top_k: 40
+  max_tokens: 2048
+  repeat_penalty: 1.1
+  presence_penalty: 0
+  frequency_penalty: 0
+  do_sample: false
+  seed: 42
+  beam_search: false
+  stream: true
+
+sampling:
+  deterministic_mode: true
+  reproducibility: "seed-locked"
+  audit_requirement: "All generation parameters must be logged per request."
+
+memory:
+  conversation_window: 10        # Last 10 turns retained
+  injection_policy: "append"     # Append conversation history before user query
+  compression: "summary"         # Summarize older turns to save tokens
+
+guardrails:
+  enforcement: "pre-generation"  # Check BEFORE inference, not after
+  blocked_output_patterns:
+    - "INSERT"
+    - "UPDATE"
+    - "DELETE"
+    - "DROP"
+    - "ALTER"
+    - "CREATE"
+    - "GRANT"
+    - "REVOKE"
+    - "EXECUTE"
+    - "TRUNCATE"
+  json_only_mode: true
+  schema_enforcement: true
+  confidence_scoring: true
+  uncertainty_reporting: true
+  refusal_handling: true
+
+stopping:
+  stop_sequences:
+    - "<|eot_id|>"
+    - "<|start_header_id|>"
+    - "USER:"
+    - "SYSTEM:"
+    - "ASSISTANT:"
+  hard_stops:
+    - "SYSTEM PROMPT LEAK"
+    - "CHAIN OF THOUGHT"
+    - "SQL EXECUTION"
+    - "ROLE OVERRIDE"
+  emergency_stop_conditions:
+    - "prompt_injection_detected"
+    - "jailbreak_attempt_detected"
+    - "dml_generation_detected"
+    - "ddl_generation_detected"
+
+validation:
+  output_format: "json"
+  schema_validation: true
+  confidence_required: true
+  deterministic_required: true
+  audit_logging: true

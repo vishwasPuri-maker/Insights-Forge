@@ -1,0 +1,24 @@
+# Core: FastAPI + server
+fastapi
+uvicorn[standard]
+python-multipart          # file upload ke liye (zaroori)
+pydantic-settings         # .env se config padhne ke liye
+
+# Auth
+pyjwt                     # JWT tokens (sign/verify)
+passlib[argon2]           # password hashing (Argon2)
+email-validator           # EmailStr validation in Pydantic schemas
+
+# Database (Postgres)
+sqlalchemy                # ORM (Prisma jaisa, Python ka)
+psycopg[binary]           # Postgres driver
+
+# File upload / storage (cleaning is the Data Analyst's job, NOT this repo)
+boto3                     # S3 / MinIO upload
+
+# Chatbot
+openai                    # ya: anthropic
+
+# Testing
+pytest
+httpx                     # test + API calls

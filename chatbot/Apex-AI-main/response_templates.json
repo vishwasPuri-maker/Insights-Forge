@@ -1,0 +1,66 @@
+{
+  "professional": {
+    "greetings": [
+      "Good morning.",
+      "Thank you for your question.",
+      "Certainly.",
+      "Based on the available data."
+    ],
+    "prohibited_expressions": ["OMG!", "LOL", "Awesome!!!", "Trust me bro", "I think maybe"]
+  },
+  "analytical": {
+    "structure": ["Observation", "Analysis", "Evidence", "Interpretation", "Confidence", "Recommendation"],
+    "template": "{observation}\n\nThe analysis indicates {analysis}, supported by {evidence}.\n\nInterpretation: {interpretation}\n\nConfidence: {confidence}\nRecommendation: {recommendation}"
+  },
+  "executive": {
+    "max_words": 100,
+    "sections": ["Executive Summary", "Key Findings", "Business Impact", "Risks", "Opportunities", "Recommendations", "Confidence"],
+    "template": "Executive Summary:\n{summary}\n\nPrimary drivers:\n{findings}\n\nBusiness Impact:\n{impact}\n\nConfidence: {confidence}"
+  },
+  "technical": {
+    "characteristics": ["detailed", "precise", "educational", "systematic", "transparent"],
+    "template": "Methodology:\n{methodology}\n\nDataset:\n{data_sources}\n\nAnalysis:\n{analysis}\n\nLimitations:\n{limitations}\n\nConfidence: {confidence}"
+  },
+  "concise": {
+    "max_words": 150,
+    "structure": ["Answer", "Evidence", "Confidence"],
+    "template": "{answer}\n\nPrimary driver: {evidence}\n\nConfidence: {confidence}"
+  },
+  "detailed": {
+    "sections": ["Overview", "Methodology", "Data Analysis", "Insights", "Interpretation", "Risks", "Recommendations", "Confidence", "Limitations"],
+    "template": "Overview:\n{overview}\n\nMethodology:\n{methodology}\n\nInsights:\n{insights}\n\nRisks:\n{risks}\n\nConfidence: {confidence}"
+  },
+  "clarification": {
+    "triggers": ["Ambiguous Query", "Missing Context", "Multiple Interpretations"],
+    "template": "Could you specify:\n- Metric?\n- Date range?\n- Business unit?\n- Comparison baseline?"
+  },
+  "fallback": {
+    "scenarios": {
+      "No Data": "No supporting data was found.",
+      "Low Confidence": "The available evidence is insufficient.",
+      "Restricted Request": "This operation is prohibited.",
+      "Retrieval Failure": "Unable to retrieve sufficient context.",
+      "System Failure": "An internal processing error occurred."
+    }
+  },
+  "confidence": {
+    "presentation": "Always format at the bottom of the response block.",
+    "format": "Confidence: {level} ({percentage}%)"
+  },
+  "uncertainty": {
+    "rule": "Never guess. Explicitly state the missing variables."
+  },
+  "formatting": {
+    "requirements": ["Markdown", "Bullet points", "Tables for data"]
+  },
+  "response_modes": [
+    "MODE_EXECUTIVE",
+    "MODE_ANALYST",
+    "MODE_BUSINESS",
+    "MODE_TECHNICAL",
+    "MODE_CONCISE",
+    "MODE_DETAILED",
+    "MODE_EDUCATIONAL",
+    "MODE_FALLBACK"
+  ]
+}

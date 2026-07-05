@@ -1,0 +1,30 @@
+services:
+  # 1. Private Service: Ollama Engine
+  - type: pserv
+    name: apex-ollama
+    env: docker
+    image: ollama/ollama:latest
+    disk:
+      name: ollama-data
+      mountPath: /root/.ollama
+      sizeGB: 10
+    startCommand: "ollama serve"
+
+  # 2. Web Service: FastAPI Backend
+  - type: web
+    name: apex-backend
+    env: docker
+    dockerfilePath: Dockerfile.backend
+    envVars:
+      - key: OLLAMA_HOST
+        value: "http://apex-ollama:11434"
+    healthCheckPath: /status
+
+  # 3. Web Service: Streamlit Frontend
+  - type: web
+    name: apex-frontend
+    env: docker
+    dockerfilePath: Dockerfile.frontend
+    envVars:
+      - key: API_URL
+        value: "https://apex-backend.onrender.com"

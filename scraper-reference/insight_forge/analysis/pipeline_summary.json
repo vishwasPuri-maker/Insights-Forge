@@ -1,0 +1,77 @@
+{
+  "ingestion": {
+    "rows_landed": 1225,
+    "distinct_tenants": 4,
+    "distinct_sources": 3,
+    "date_range_note": "Simulated S3 landing at tenants/<tenant_uuid>/raw/"
+  },
+  "quality_assessment": {
+    "total_rows": 1225,
+    "rows_below_completeness_threshold_deadletter": 0,
+    "rows_out_of_logical_range": 114,
+    "duplicate_rows": 49,
+    "missing_pct_by_column": {
+      "indicator_metric": 7.84,
+      "temporal_stamp": 4.9799999999999995,
+      "sector": 4.0
+    },
+    "corruption_ratio_pct": 8.0
+  },
+  "cleaning": {
+    "rows_after_validation_and_dedup": 1176,
+    "rows_dropped_unparseable_timestamp": 36,
+    "rows_knn_imputed_indicator_metric": 36,
+    "rows_flagged_as_statistical_outliers": 57,
+    "rows_out_of_logical_range_after_clean": 16,
+    "final_clean_row_count": 1140,
+    "pii_fields_hashed": [
+      "scraper_operator_email",
+      "submitted_by_ip"
+    ]
+  },
+  "descriptive_statistics": {
+    "indicator_metric": {
+      "count": 1140.0,
+      "mean": 0.5689,
+      "std": 0.2824,
+      "min": -2.0,
+      "25%": 0.4575,
+      "50%": 0.5627,
+      "75%": 0.6559,
+      "max": 3.1
+    },
+    "sector_value_counts": {
+      "EdTech": 203,
+      "Retail": 196,
+      "Fintech": 191,
+      "Automotive": 187,
+      "Healthcare": 183,
+      "FMCG": 180
+    },
+    "tenant_row_counts": {
+      "0c0564c7-8951-4ad9-aa21-5e88e867fe03": 297,
+      "b78cd89d-d624-4e01-9328-c95cc5794247": 290,
+      "48349e5e-6198-4663-916c-ff47759c4de6": 288,
+      "c428efa4-3500-4c01-9af4-58528b179dd6": 265
+    }
+  },
+  "bivariate_analysis": {
+    "mean_metric_by_sector": {
+      "Automotive": 0.5692,
+      "EdTech": 0.5688,
+      "FMCG": 0.5764,
+      "Fintech": 0.5966,
+      "Healthcare": 0.5254,
+      "Retail": 0.5757
+    },
+    "outlier_rate_pct_by_sector": {
+      "Retail": 7.14,
+      "EdTech": 5.91,
+      "Fintech": 5.24,
+      "Automotive": 4.81,
+      "FMCG": 3.89,
+      "Healthcare": 2.73
+    },
+    "correlation_hour_vs_metric": -0.027
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "refusal_templates": [
+    {
+      "refusal_type": "SECURITY",
+      "reason": "This request violates enterprise security policies.",
+      "severity": "CRITICAL",
+      "allowed_alternative": "Please ask for business analytics or KPI tracking."
+    },
+    {
+      "refusal_type": "SQL_DML",
+      "reason": "Database modification (DML) is prohibited in this read-only analytical environment.",
+      "severity": "CRITICAL",
+      "allowed_alternative": "I can analyze existing data instead of modifying it."
+    },
+    {
+      "refusal_type": "SQL_DDL",
+      "reason": "Database definition (DDL) is prohibited in this read-only analytical environment.",
+      "severity": "CRITICAL",
+      "allowed_alternative": "I can explain the current schema, but cannot alter it."
+    },
+    {
+      "refusal_type": "PROMPT_INJECTION",
+      "reason": "System instructions cannot be overridden.",
+      "severity": "CRITICAL",
+      "allowed_alternative": "I am operating as Apex AI. How can I help you with analytics?"
+    },
+    {
+      "refusal_type": "OUT_OF_SCOPE",
+      "reason": "This task falls outside my authorized business intelligence boundaries.",
+      "severity": "LOW",
+      "allowed_alternative": "I can assist with forecasting, trend analysis, or dashboard explanations."
+    }
+  ],
+  "error_templates": [
+    {
+      "error_code": "VALIDATION_ERROR",
+      "message": "The generated analytical response failed JSON schema validation.",
+      "severity": "HIGH",
+      "recoverable": true
+    },
+    {
+      "error_code": "RAG_ERROR",
+      "message": "The analytics engine could not retrieve the required context.",
+      "severity": "MEDIUM",
+      "recoverable": true
+    },
+    {
+      "error_code": "SYSTEM_ERROR",
+      "message": "An internal inference error occurred in the vLLM engine.",
+      "severity": "CRITICAL",
+      "recoverable": false
+    }
+  ],
+  "fallback_templates": [
+    {
+      "fallback_reason": "LOW_CONFIDENCE",
+      "fallback_message": "I do not have enough deterministic evidence to confidently answer this query.",
+      "recommended_action": "Please provide more specific date ranges or metrics."
+    },
+    {
+      "fallback_reason": "AMBIGUOUS_QUERY",
+      "fallback_message": "The requested analytical intent is ambiguous.",
+      "recommended_action": "Could you clarify if you want a trend analysis, a forecast, or an executive summary?"
+    }
+  ]
+}

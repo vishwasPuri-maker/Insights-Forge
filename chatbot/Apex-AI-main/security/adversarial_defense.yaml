@@ -1,0 +1,22 @@
+adversarial_protection:
+  unicode:
+    normalize_input: true
+    strip_hidden_characters: true
+    block_homoglyphs: true
+  
+  encoding:
+    detect_base64_payloads: true
+    detect_hex_payloads: true
+    max_decoding_depth: 2
+  
+  recursion:
+    max_prompt_depth: 3
+    detect_nested_instructions: true
+  
+  flooding:
+    max_tokens_per_request: 4096
+    detect_repetitive_patterns: true
+  
+  poisoning:
+    sanitize_rag_context: true
+    isolate_user_input: true

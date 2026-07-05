@@ -1,0 +1,332 @@
+[
+  {
+    "tool_name": "health_api_v1_health_get",
+    "endpoint": "/api/v1/health",
+    "method": "GET",
+    "description": "Health",
+    "input_schema": {},
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": false,
+    "read_only": true
+  },
+  {
+    "tool_name": "signup_api_v1_auth_signup_post",
+    "endpoint": "/api/v1/auth/signup",
+    "method": "POST",
+    "description": "Signup",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": false,
+    "read_only": false
+  },
+  {
+    "tool_name": "login_api_v1_auth_login_post",
+    "endpoint": "/api/v1/auth/login",
+    "method": "POST",
+    "description": "Login",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": false,
+    "read_only": false
+  },
+  {
+    "tool_name": "refresh_api_v1_auth_refresh_post",
+    "endpoint": "/api/v1/auth/refresh",
+    "method": "POST",
+    "description": "Refresh",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": false,
+    "read_only": false
+  },
+  {
+    "tool_name": "logout_api_v1_auth_logout_post",
+    "endpoint": "/api/v1/auth/logout",
+    "method": "POST",
+    "description": "Logout",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": false,
+    "read_only": false
+  },
+  {
+    "tool_name": "stream_upload_api_v1_ingestion_stream_post",
+    "endpoint": "/api/v1/ingestion/stream",
+    "method": "POST",
+    "description": "Stream Upload",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "list_datasets_api_v1_datasets_get",
+    "endpoint": "/api/v1/datasets",
+    "method": "GET",
+    "description": "List Datasets",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "get_dataset_api_v1_datasets__dataset_id__get",
+    "endpoint": "/api/v1/datasets/{dataset_id}",
+    "method": "GET",
+    "description": "Get Dataset",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "scorecard_api_v1_sectors__sector__scorecard_get",
+    "endpoint": "/api/v1/sectors/{sector}/scorecard",
+    "method": "GET",
+    "description": "Scorecard",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "timeseries_api_v1_sectors__sector__timeseries_get",
+    "endpoint": "/api/v1/sectors/{sector}/timeseries",
+    "method": "GET",
+    "description": "Timeseries",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "list_records_api_v1_sectors__sector__records_get",
+    "endpoint": "/api/v1/sectors/{sector}/records",
+    "method": "GET",
+    "description": "List Records",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "geo_api_v1_sectors__sector__geo_get",
+    "endpoint": "/api/v1/sectors/{sector}/geo",
+    "method": "GET",
+    "description": "Geo",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "get_record_api_v1_sectors__sector__records__record_id__get",
+    "endpoint": "/api/v1/sectors/{sector}/records/{record_id}",
+    "method": "GET",
+    "description": "Get Record",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "list_decision_cards_api_v1_decision_cards_get",
+    "endpoint": "/api/v1/decision-cards",
+    "method": "GET",
+    "description": "List Decision Cards",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "approve_api_v1_decision_cards__card_id__approve_post",
+    "endpoint": "/api/v1/decision-cards/{card_id}/approve",
+    "method": "POST",
+    "description": "Approve",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "reject_api_v1_decision_cards__card_id__reject_post",
+    "endpoint": "/api/v1/decision-cards/{card_id}/reject",
+    "method": "POST",
+    "description": "Reject",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "simulate_api_v1_simulate_post",
+    "endpoint": "/api/v1/simulate",
+    "method": "POST",
+    "description": "Simulate",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "compile_report_api_v1_reports_compile_post",
+    "endpoint": "/api/v1/reports/compile",
+    "method": "POST",
+    "description": "Compile Report",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "get_report_api_v1_reports__report_id__get",
+    "endpoint": "/api/v1/reports/{report_id}",
+    "method": "GET",
+    "description": "Get Report",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "list_thresholds_api_v1_thresholds_get",
+    "endpoint": "/api/v1/thresholds",
+    "method": "GET",
+    "description": "List Thresholds",
+    "input_schema": {},
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "update_threshold_api_v1_thresholds__threshold_id__put",
+    "endpoint": "/api/v1/thresholds/{threshold_id}",
+    "method": "PUT",
+    "description": "Update Threshold",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "list_users_api_v1_users_get",
+    "endpoint": "/api/v1/users",
+    "method": "GET",
+    "description": "List Users",
+    "input_schema": {},
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": true
+  },
+  {
+    "tool_name": "create_user_api_v1_users_post",
+    "endpoint": "/api/v1/users",
+    "method": "POST",
+    "description": "Create User",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  },
+  {
+    "tool_name": "delete_user_api_v1_users__user_id__delete",
+    "endpoint": "/api/v1/users/{user_id}",
+    "method": "DELETE",
+    "description": "Delete User",
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "auth_required": true,
+    "read_only": false
+  }
+]

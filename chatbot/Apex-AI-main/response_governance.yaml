@@ -1,0 +1,51 @@
+# Apex AI — Response Governance Policies
+# Authoritative governance layer over output validation, safety, and routing
+
+governance_policies:
+  schema_enforcement:
+    enabled: true
+    mode: "strict" # Abort if schema fails, do not attempt to repair
+    action_on_failure: "trigger_fallback"
+    log_level: "ERROR"
+
+  safety_rules:
+    dml_prohibition:
+      enabled: true
+      action: "refuse"
+      severity_escalation: "CRITICAL"
+    ddl_prohibition:
+      enabled: true
+      action: "refuse"
+      severity_escalation: "CRITICAL"
+    admin_prohibition:
+      enabled: true
+      action: "refuse"
+      severity_escalation: "HIGH"
+
+  validation_workflows:
+    pre_generation:
+      - "prompt_injection_check"
+      - "role_hijack_check"
+      - "boundary_enforcement"
+    post_generation:
+      - "json_schema_validation"
+      - "sql_leak_check"
+      - "confidence_boundary_check"
+      - "hallucination_validation"
+
+  confidence_governance:
+    minimum_threshold_for_success: 0.70
+    action_on_low_confidence: "flag_as_uncertain"
+    action_on_unknown: "trigger_refusal_hallucination"
+    enforce_evidence_count: true
+
+  audit_logging:
+    log_all_responses: true
+    log_metadata: true
+    retention_days: 90
+    anonymize_pii_before_log: true
+
+  rag_governance:
+    require_citations_for_claims: true
+    prohibit_invented_sources: true
+    citation_confidence_threshold: 0.80

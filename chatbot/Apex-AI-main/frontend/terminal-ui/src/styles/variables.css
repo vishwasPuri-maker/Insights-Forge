@@ -1,0 +1,14 @@
+:root {
+  --bg-color: #111111;
+  --panel-bg: #171717;
+  --orange: #e48b68;
+  --text-primary: #e4e4e4;
+  --text-secondary: #8a8a8a;
+  --border-color: rgba(228, 139, 104, 0.5);
+  --font-mono: "JetBrains Mono", monospace;
+  --glow: 0 0 10px rgba(228, 139, 104, 0.3);
+  --glow-strong: 0 0 20px rgba(228, 139, 104, 0.5);
+  --mac-red: #ff5f56;
+  --mac-yellow: #ffbd2e;
+  --mac-green: #27c93f;
+}

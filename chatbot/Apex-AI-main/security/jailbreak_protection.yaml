@@ -1,0 +1,38 @@
+jailbreak_detection:
+  roleplay:
+    patterns:
+      - "(?i)pretend\\s+to\\s+be\\s+dan"
+      - "(?i)act\\s+as\\s+an\\s+uncensored\\s+ai"
+      - "(?i)you\\s+are\\s+now\\s+free\\s+from\\s+rules"
+    action: "BLOCK_AND_REFUSE"
+  
+  override:
+    patterns:
+      - "(?i)developer\\s+mode\\s+enabled"
+      - "(?i)god\\s+mode"
+      - "(?i)ignore\\s+safety"
+      - "(?i)no\\s+restrictions"
+      - "(?i)unfiltered\\s+mode"
+    action: "BLOCK_AND_REFUSE"
+
+  simulation:
+    patterns:
+      - "(?i)start\\s+simulation"
+      - "(?i)in\\s+this\\s+hypothetical\\s+scenario"
+    action: "EVALUATE_INTENT"
+  
+  privilege_escalation:
+    patterns:
+      - "(?i)elevate\\s+privileges"
+      - "(?i)bypass\\s+authorization"
+    action: "BLOCK_AND_LOG"
+
+  recursive:
+    patterns:
+      - "(?i)translate\\s+this\\s+payload"
+      - "(?i)echo\\s+this\\s+command"
+    action: "BLOCK_AND_LOG"
+
+policies:
+  automatic_refusal_enabled: true
+  escalation_policy: "Log to enterprise SIEM and terminate session on 3 consecutive violations."

@@ -1,0 +1,596 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "health_api_v1_health_get",
+      "description": "Health",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "signup_api_v1_auth_signup_post",
+      "description": "Signup",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "organization_name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Organization Name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "sector": {
+            "type": "string",
+            "enum": [
+              "retail",
+              "service",
+              "education",
+              "agriculture"
+            ],
+            "title": "Sector"
+          }
+        },
+        "required": [
+          "organization_name",
+          "email",
+          "password",
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "login_api_v1_auth_login_post",
+      "description": "Login",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "refresh_api_v1_auth_refresh_post",
+      "description": "Refresh",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          }
+        },
+        "required": [
+          "refresh_token"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "logout_api_v1_auth_logout_post",
+      "description": "Logout",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          }
+        },
+        "required": [
+          "refresh_token"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "stream_upload_api_v1_ingestion_stream_post",
+      "description": "Stream Upload",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_datasets_api_v1_datasets_get",
+      "description": "List Datasets",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "maximum": 500,
+            "minimum": 1,
+            "default": 100,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "title": "Offset"
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_dataset_api_v1_datasets__dataset_id__get",
+      "description": "Get Dataset",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dataset_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Dataset Id"
+          }
+        },
+        "required": [
+          "dataset_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "scorecard_api_v1_sectors__sector__scorecard_get",
+      "description": "Scorecard",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sector": {
+            "type": "string",
+            "description": "one of retail | service | education | agriculture",
+            "title": "Sector"
+          }
+        },
+        "required": [
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "timeseries_api_v1_sectors__sector__timeseries_get",
+      "description": "Timeseries",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sector": {
+            "type": "string",
+            "description": "one of retail | service | education | agriculture",
+            "title": "Sector"
+          }
+        },
+        "required": [
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_records_api_v1_sectors__sector__records_get",
+      "description": "List Records",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sector": {
+            "type": "string",
+            "description": "one of retail | service | education | agriculture",
+            "title": "Sector"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 500,
+            "minimum": 1,
+            "default": 50,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "title": "Offset"
+          }
+        },
+        "required": [
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "geo_api_v1_sectors__sector__geo_get",
+      "description": "Geo",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sector": {
+            "type": "string",
+            "description": "one of retail | service | education | agriculture",
+            "title": "Sector"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 5000,
+            "minimum": 1,
+            "default": 1000,
+            "title": "Limit"
+          }
+        },
+        "required": [
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_record_api_v1_sectors__sector__records__record_id__get",
+      "description": "Get Record",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Record Id"
+          },
+          "sector": {
+            "type": "string",
+            "description": "one of retail | service | education | agriculture",
+            "title": "Sector"
+          }
+        },
+        "required": [
+          "record_id",
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_decision_cards_api_v1_decision_cards_get",
+      "description": "List Decision Cards",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(pending|approved|rejected)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 500,
+            "minimum": 1,
+            "default": 100,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "title": "Offset"
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "approve_api_v1_decision_cards__card_id__approve_post",
+      "description": "Approve",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "card_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Card Id"
+          }
+        },
+        "required": [
+          "card_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "reject_api_v1_decision_cards__card_id__reject_post",
+      "description": "Reject",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "card_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Card Id"
+          }
+        },
+        "required": [
+          "card_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "simulate_api_v1_simulate_post",
+      "description": "Simulate",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/SimulateMetric"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Metrics"
+          }
+        },
+        "required": [
+          "metrics"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "compile_report_api_v1_reports_compile_post",
+      "description": "Compile Report",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "report_type": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Report Type"
+          },
+          "params": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Params"
+          }
+        },
+        "required": [
+          "report_type"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_report_api_v1_reports__report_id__get",
+      "description": "Get Report",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Report Id"
+          }
+        },
+        "required": [
+          "report_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_thresholds_api_v1_thresholds_get",
+      "description": "List Thresholds",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "update_threshold_api_v1_thresholds__threshold_id__put",
+      "description": "Update Threshold",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "threshold_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Threshold Id"
+          },
+          "warning_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning Value"
+          },
+          "critical_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Critical Value"
+          }
+        },
+        "required": [
+          "threshold_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_users_api_v1_users_get",
+      "description": "List Users",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_user_api_v1_users_post",
+      "description": "Create User",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "manager",
+              "admin"
+            ],
+            "title": "Role",
+            "default": "user"
+          },
+          "sector": {
+            "type": "string",
+            "enum": [
+              "retail",
+              "service",
+              "education",
+              "agriculture"
+            ],
+            "title": "Sector"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "sector"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "delete_user_api_v1_users__user_id__delete",
+      "description": "Delete User",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          }
+        },
+        "required": [
+          "user_id"
+        ]
+      }
+    }
+  }
+]

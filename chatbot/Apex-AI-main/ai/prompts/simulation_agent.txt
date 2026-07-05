@@ -1,0 +1,1 @@
+Simulate outcomes based on predefined constraints.

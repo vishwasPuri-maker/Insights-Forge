@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system build dependencies required for heavy data science libraries like ChromaDB/Pandas
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY . .
+
+# Run FastAPI on Render's dynamic $PORT
+EXPOSE 8000
+CMD uvicorn backend.api.app:app --host 0.0.0.0 --port ${PORT:-8000}
