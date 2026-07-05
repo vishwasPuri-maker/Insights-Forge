@@ -1,4 +1,4 @@
-# 🌌 Insights Forge (PAX 2.0 / DecisIQ)
+# 🌌 Insights Forge (/DecisIQ)
 
 > **Multi-tenant AI Decision Intelligence Platform** catering to **Retail, Service, Education, and Agriculture** sectors. Designed to turn raw operational data into interactive analytics, geospatial maps, and AI-powered recommendations.
 
