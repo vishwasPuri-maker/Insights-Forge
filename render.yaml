@@ -1,10 +1,13 @@
 services:
   - type: web
-    name: Insights-Forge
+    name: Insights-Forge-New
     runtime: python
     repo: https://github.com/ganeshzambare-git/Insights-Forge
     branch: main
-    rootDir: scraper/backend
+    rootDir: backend/backend
     buildCommand: pip install -r requirements.txt
     preDeployCommand: alembic upgrade head
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.6
