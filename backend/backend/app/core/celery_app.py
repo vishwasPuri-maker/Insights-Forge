@@ -25,6 +25,10 @@ celery_app.conf.update(
     task_time_limit=1800,  # 30 minutes max execution time
     broker_connection_timeout=4,  # fail fast if Redis unavailable
     broker_connection_retry_on_startup=False,
+    # Eager mode: run tasks synchronously in the calling process (no worker /
+    # Redis needed). Default True so ingestion works on Render's free tier.
+    task_always_eager=settings.CELERY_TASK_ALWAYS_EAGER,
+    task_eager_propagates=True,
 )
 
 # Auto-discover tasks registered in app.tasks modules

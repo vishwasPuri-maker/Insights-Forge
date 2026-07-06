@@ -31,6 +31,11 @@ class Settings(BaseSettings):
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
 
+    # Celery: run tasks in-process (eager) by default so ingestion works without
+    # a separate worker or Redis (Render free tier has no Background Workers).
+    # Set to false in .env and run a real worker to offload tasks in production.
+    CELERY_TASK_ALWAYS_EAGER: bool = True
+
     # CORS
     BACKEND_CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
 
