@@ -42,7 +42,10 @@ class RAGPipeline:
         retrieval fails; the caller then refuses via the FactCheckAgent instead
         of fabricating an answer. We never fall back to mock/hardcoded content.
         """
-        if self.retriever is None or workspace_id is None or organization_id is None:
+        # Note: a missing retriever (RAG/semantic search disabled) must NOT skip
+        # the factual DB summary below — that's what grounds counting/aggregate
+        # answers and needs no embeddings. Only bail when we have no tenant scope.
+        if workspace_id is None or organization_id is None:
             return ""
 
         import uuid
@@ -64,16 +67,18 @@ class RAGPipeline:
             except Exception as e:
                 logger.error(f"DATA GROUNDING SUMMARY ERROR: {str(e)}")
 
-        # 2. Semantically relevant rows for the specific query.
-        try:
-            semantic = self.retriever.retrieve_and_build_context(
-                query=user_query,
-                organization_id=org_uuid,
-                workspace_id=ws_uuid,
-            )
-            if semantic:
-                parts.append("=== RELEVANT RECORDS ===\n" + semantic)
-        except Exception as e:
-            logger.error(f"RAG PRODUCTION RETRIEVAL ERROR: {str(e)}")
+        # 2. Semantically relevant rows for the specific query (needs embeddings;
+        #    skipped when the retriever is disabled on small hosts).
+        if self.retriever is not None:
+            try:
+                semantic = self.retriever.retrieve_and_build_context(
+                    query=user_query,
+                    organization_id=org_uuid,
+                    workspace_id=ws_uuid,
+                )
+                if semantic:
+                    parts.append("=== RELEVANT RECORDS ===\n" + semantic)
+            except Exception as e:
+                logger.error(f"RAG PRODUCTION RETRIEVAL ERROR: {str(e)}")
 
         return "\n\n".join(parts)
