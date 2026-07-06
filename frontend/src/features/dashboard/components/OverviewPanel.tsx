@@ -4,6 +4,9 @@ import { BaseChart } from '@/components/charts/BaseChart';
 import { useDashboard } from '../hooks/useDashboard';
 import { useDataProfile } from '../hooks/useDataProfile';
 import { useRecordsSample } from '../hooks/useRecordsSample';
+import { useTenantStore } from '@/store/tenantStore';
+import { refreshMarketTimeseries, type MarketTimeseries } from '../api/marketClient';
+import { useMutation } from '@tanstack/react-query';
 
 // ---------------------------------------------------------------------------
 // Performance Overview — the screenshot layout: filters rail on the left;
@@ -13,6 +16,7 @@ import { useRecordsSample } from '../hooks/useRecordsSample';
 // ---------------------------------------------------------------------------
 
 const EMBER = '#ff682c';
+const BRASS = '#816729';
 const GRAPHITE = '#202020';
 const SLATE = '#828282';
 const MIST = '#e8e8e8';
@@ -62,6 +66,11 @@ export const OverviewPanel: React.FC<{ sectorTitle: string }> = ({ sectorTitle }
   const { data: dash } = useDashboard();
   const { data: profile } = useDataProfile();
   const { data: recordsPage } = useRecordsSample(200);
+  const { sectorId } = useTenantStore();
+  const marketMutation = useMutation<MarketTimeseries, unknown, string>({
+    mutationFn: (sectorIdArg: string) => refreshMarketTimeseries(sectorIdArg),
+  });
+  const market = marketMutation.data;
 
   const rows: Row[] = useMemo(
     () => (recordsPage?.items ?? []).map((r) => r.data as Row).filter((d) => d && typeof d === 'object'),
@@ -145,6 +154,38 @@ export const OverviewPanel: React.FC<{ sectorTitle: string }> = ({ sectorTitle }
     return ((last - prev) / prev) * 100;
   }, [ts]);
 
+  // ---- market overlay: resample market onto the user's date labels by
+  //      NEAREST date (exact-match is too strict — the user's data is sparse
+  //      and clumped, so daily market dates rarely land on the same day). Any
+  //      user label within the market's date range gets its nearest value. ----
+  const marketAligned = useMemo(() => {
+    const mLabels = market?.labels ?? [];
+    const mValues = market?.series?.[0]?.values ?? [];
+    const uLabels = ts?.labels ?? [];
+    if (mLabels.length === 0 || uLabels.length === 0) return null;
+
+    const mTimes = mLabels.map((l) => new Date(l).getTime());
+    const minT = Math.min(...mTimes);
+    const maxT = Math.max(...mTimes);
+
+    const aligned = uLabels.map((l) => {
+      const t = new Date(l).getTime();
+      if (Number.isNaN(t) || t < minT || t > maxT) return null;
+      // nearest market point in time
+      let best = 0;
+      let bestDiff = Infinity;
+      for (let i = 0; i < mTimes.length; i++) {
+        const d = Math.abs(mTimes[i] - t);
+        if (d < bestDiff) {
+          bestDiff = d;
+          best = i;
+        }
+      }
+      return mValues[best] ?? null;
+    });
+    return aligned.some((v) => v !== null) ? aligned : null;
+  }, [market, ts]);
+
   // ---- trend & forecast chart ----
   const forecastOption: EChartsOption | null = useMemo(() => {
     const labels = ts?.labels ?? [];
@@ -154,14 +195,51 @@ export const OverviewPanel: React.FC<{ sectorTitle: string }> = ({ sectorTitle }
     const fcLabels = fc.map((_, i) => `+${i + 1}`);
     const actual = [...values, ...fc.map(() => null)];
     const forecast = [...values.map((_, i) => (i === values.length - 1 ? values[i] : null)), ...fc];
+    const marketSeries = marketAligned
+      ? [{
+          name: 'Market',
+          type: 'line' as const,
+          // market is on its own scale → bind to the secondary (right) Y-axis
+          yAxisIndex: 1,
+          data: [...marketAligned, ...fc.map(() => null)],
+          smooth: true,
+          showSymbol: false,
+          connectNulls: true,
+          lineStyle: { width: 2, color: BRASS },
+          itemStyle: { color: BRASS },
+        }]
+      : [];
     return {
-      grid: { left: 44, right: 18, top: 16, bottom: 30 },
+      grid: { left: 44, right: marketAligned ? 44 : 18, top: marketAligned ? 30 : 16, bottom: 30 },
       tooltip: { trigger: 'axis' },
+      legend: marketAligned
+        ? {
+            show: true,
+            top: 0,
+            right: 0,
+            data: ['Your data', 'Market'],
+            textStyle: { color: SLATE, fontSize: 11 },
+            icon: 'roundRect',
+          }
+        : { show: false },
       xAxis: { type: 'category', data: [...labels, ...fcLabels], ...AXIS },
-      yAxis: { type: 'value', ...AXIS },
-      series: [
+      yAxis: [
+        { type: 'value', ...AXIS },
+        // secondary axis for the market index (brass), only when overlaid
         {
-          name: 'Actual',
+          type: 'value',
+          ...AXIS,
+          position: 'right',
+          axisLabel: { color: BRASS, fontSize: 10 },
+          splitLine: { show: false },
+          scale: true,
+          show: !!marketAligned,
+        },
+      ],
+      series: [
+        ...marketSeries,
+        {
+          name: 'Your data',
           type: 'line',
           data: actual,
           smooth: true,
@@ -187,7 +265,7 @@ export const OverviewPanel: React.FC<{ sectorTitle: string }> = ({ sectorTitle }
         },
       ],
     };
-  }, [ts]);
+  }, [ts, marketAligned]);
 
   // ---- category mix (funnel-style descending bars) ----
   const mixChart = useMemo(() => {
@@ -297,8 +375,33 @@ export const OverviewPanel: React.FC<{ sectorTitle: string }> = ({ sectorTitle }
         {/* Charts row */}
         <div className="sd-ov-charts">
           <div className="sd-card sd-ov-chartcard sd-rise" style={{ ['--d' as string]: 5 } as React.CSSProperties}>
-            <p className="sd-ov-card-title">Trend &amp; forecast</p>
-            <p className="sd-ov-card-sub">Actual vs AI projection</p>
+            <div className="sd-ov-cardhead">
+              <div>
+                <p className="sd-ov-card-title">Trend &amp; forecast</p>
+                <p className="sd-ov-card-sub">
+                  Actual vs AI projection
+                  {marketAligned && <span className="sd-ov-vsmarket"> · vs Market</span>}
+                </p>
+              </div>
+              {!marketAligned && (
+                <button
+                  type="button"
+                  className="sd-ov-compare"
+                  disabled={marketMutation.isPending || !sectorId}
+                  onClick={() => sectorId && marketMutation.mutate(sectorId)}
+                >
+                  {marketMutation.isPending ? 'Fetching live market data…' : 'Compare with market'}
+                </button>
+              )}
+            </div>
+            {marketMutation.isError && (
+              <p className="sd-ov-card-sub" style={{ color: 'var(--signal-orange)' }}>
+                Market data unavailable right now.
+              </p>
+            )}
+            {marketMutation.isSuccess && !marketAligned && (
+              <p className="sd-ov-card-sub">No overlapping market dates to compare yet.</p>
+            )}
             {forecastOption ? (
               <BaseChart option={forecastOption} style={{ height: '240px', minHeight: '240px' }} />
             ) : (

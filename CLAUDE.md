@@ -17,11 +17,13 @@ This is a **monorepo of four independent sub-projects**, each with its own runti
 
 `scraper-reference/` holds analytical DAG / Spark reference pipelines; treat as read-only reference, not a running service.
 
+A fifth service now lives under the scraper: **`scraper/backend/market_service/`** — a standalone "Market Data" microservice (its own FastAPI app + its **own** Neon Postgres via `MARKET_DATABASE_URL`) that serves benchmark/market timeseries to the product backend over HTTP (default port 8100) and can be told to scrape/refresh on demand. It currently generates demo data (`service.py`) standing in for a live source, retains the most recent `RETENTION_POINTS` (400) rows per `(sector, metric)`, and powers the frontend Data Observatory (`features/dashboard/api/marketClient.ts`, `hooks/useMarketTimeseries.ts`; seeded via `backend/backend/seed_market_org.py`).
+
 > Note the **doubled paths**: the real backend is `backend/backend/`, not `backend/`. Commands for it run from `backend/backend/`.
 
-## Not a git repository
+## This IS a git repository
 
-There is no `.git` here. Do not assume git history, branches, or `git` commands are available.
+Contrary to earlier notes, `.git` now exists (default branch `main`). Git history, branches, and `git` commands are available.
 
 ## Agent onboarding (important)
 
@@ -64,8 +66,15 @@ npx oxlint                 # actual linter — `npm run lint` calls eslint, whic
 ```
 API base URL comes from `VITE_API_URL` (defaults to `/api/v1`).
 
-### Scraper / Chatbot
-Each has its own `requirements.txt` and README; they are separate FastAPI apps and are not wired into the product backend. The chatbot launches backend+Streamlit together via `python chatbot/Apex-AI-main/run_unified.py`.
+### Scraper / Chatbot / Market service
+Each has its own `requirements.txt` and README; they are separate FastAPI apps and are not wired into the product backend. The chatbot launches backend+Streamlit together via `python chatbot/Apex-AI-main/run_unified.py`. The market microservice runs from `scraper/backend/`:
+```bash
+MARKET_DATABASE_URL=postgresql://... ./venv/bin/python -m uvicorn market_service.app:app --port 8100
+```
+
+## Design & product intent (read before frontend/UI work)
+
+`DESIGN.md` and `PRODUCT.md` at the root define the current visual system — **"Ventriloc"**: an editorial, light-theme (dark mode retired) data observatory. Monochrome graphite-on-paper precision with a single ember-orange accent used **only** as punctuation (links, chart highlight, active dot) — **never** as a CTA fill. Design tokens are the `--color-*` vars in `DESIGN.md`, mapped to shadcn HSL in `frontend/src/index.css`. Aim for "a printed annual report that happens to be interactive," not a glowing terminal.
 
 ## Backend architecture (summary — full detail in `backend/backend/CLAUDE.md`)
 

@@ -46,6 +46,66 @@ def get_scorecard(
     return sector_service.scorecard(db, sector=sector, workspace_id=workspace_id)
 
 
+@router.get("/{sector}/market/timeseries", response_model=TimeseriesOut)
+def get_market_timeseries(
+    sector: str = _SectorPath,
+    current: CurrentUser = Depends(get_current_user),
+) -> TimeseriesOut:
+    """Read-only market/benchmark timeseries — proxied from the standalone
+    Market Data microservice (its own Neon DB). Additive endpoint; returns an
+    empty series when the service is unset/unreachable so the frontend simply
+    hides the overlay. Not ensure_sector-gated: market data is shared
+    reference data for any authenticated user."""
+    import httpx
+    from app.core.config import settings
+
+    empty = TimeseriesOut(sector=sector, labels=[], series=[])
+    if not settings.MARKET_DATA_ENABLED or not settings.MARKET_SERVICE_URL:
+        return empty
+    try:
+        base = settings.MARKET_SERVICE_URL.rstrip("/")
+        resp = httpx.get(f"{base}/market/{sector}/timeseries", timeout=8.0)
+        resp.raise_for_status()
+        data = resp.json()
+        return TimeseriesOut(
+            sector=sector,
+            labels=data.get("labels", []),
+            series=data.get("series", []),
+        )
+    except Exception:
+        return empty
+
+
+@router.post("/{sector}/market/refresh", response_model=TimeseriesOut)
+def refresh_market_timeseries(
+    sector: str = _SectorPath,
+    current: CurrentUser = Depends(get_current_user),
+) -> TimeseriesOut:
+    """Trigger a live market-data refresh for the sector (user hits "Compare
+    with market"), then return the refreshed series. Proxies to the market
+    microservice; on failure returns an empty series (UI shows nothing)."""
+    import httpx
+    from app.core.config import settings
+
+    empty = TimeseriesOut(sector=sector, labels=[], series=[])
+    if not settings.MARKET_DATA_ENABLED or not settings.MARKET_SERVICE_URL:
+        return empty
+    try:
+        base = settings.MARKET_SERVICE_URL.rstrip("/")
+        # Refresh can scrape a live source — allow generous time.
+        httpx.post(f"{base}/market/{sector}/refresh", timeout=120.0).raise_for_status()
+        resp = httpx.get(f"{base}/market/{sector}/timeseries", timeout=8.0)
+        resp.raise_for_status()
+        data = resp.json()
+        return TimeseriesOut(
+            sector=sector,
+            labels=data.get("labels", []),
+            series=data.get("series", []),
+        )
+    except Exception:
+        return empty
+
+
 @router.get("/{sector}/analytics/profile", response_model=DataProfileOut)
 def get_data_profile(
     sector: str = _SectorPath,

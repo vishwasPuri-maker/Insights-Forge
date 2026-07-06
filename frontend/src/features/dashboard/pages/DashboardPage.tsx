@@ -412,6 +412,15 @@ const DASH_THEME_CSS = `
   font-size: 16px; font-weight: 600; letter-spacing: -0.2px; color: var(--carbon);
 }
 .sd-ov-card-sub { font-size: 12px; color: var(--slate); margin: 2px 0 6px; }
+.sd-ov-vsmarket { color: #816729; font-weight: 600; }
+.sd-ov-cardhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.sd-ov-compare {
+  flex-shrink: 0; font-size: 12px; font-weight: 600; color: var(--carbon);
+  background: var(--paper); border: 1px solid var(--carbon); border-radius: 0;
+  padding: 6px 12px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease;
+}
+.sd-ov-compare:hover:not(:disabled) { background: var(--carbon); color: #fff; }
+.sd-ov-compare:disabled { opacity: 0.55; cursor: default; border-color: var(--chalk); color: var(--slate); }
 .sd-ov-tablecard { padding: 6px 18px 12px; overflow-x: auto; }
 .sd-ov-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .sd-ov-table th {

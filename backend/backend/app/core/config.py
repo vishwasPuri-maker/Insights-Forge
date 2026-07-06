@@ -38,6 +38,15 @@ class Settings(BaseSettings):
     UPLOAD_DIRECTORY: str = "uploads"
     MAX_UPLOAD_SIZE_MB: int = 100
 
+    # Market data ("Your data vs Market"): a dedicated organization whose
+    # sector-workspaces hold scraped public/market records, served read-only
+    # via GET /sectors/{sector}/market/timeseries. Off by default.
+    MARKET_DATA_ENABLED: bool = False
+    MARKET_ORGANIZATION_ID: str = ""
+    # Market Data microservice (separate service + its own Neon DB). When set,
+    # /market/* endpoints proxy to it. Empty -> market overlay simply hidden.
+    MARKET_SERVICE_URL: str = ""
+
     # LLM Settings — Gemini is the only supported provider (no local Ollama).
     LLM_PROVIDER: str = "gemini"
     LLM_MODEL: str = "gemma:2b"
