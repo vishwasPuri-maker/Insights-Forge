@@ -36,6 +36,12 @@ class Settings(BaseSettings):
     # Set to false in .env and run a real worker to offload tasks in production.
     CELERY_TASK_ALWAYS_EAGER: bool = True
 
+    # RAG vector indexing after ingestion loads the sentence-transformer model
+    # (~hundreds of MB RAM). On small hosts (e.g. Render free 512MB) this OOMs
+    # or times out the upload request. Disable to keep uploads/charts working
+    # without embeddings; chat still answers via Gemini (without RAG context).
+    RAG_INDEXING_ENABLED: bool = True
+
     # CORS
     BACKEND_CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
 

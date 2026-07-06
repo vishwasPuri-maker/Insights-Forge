@@ -85,15 +85,22 @@ def ingest_dataset_task(
         dataset.status = DatasetStatus.ACTIVE
         db.commit()
 
-        # Dispatch event for background indexing
-        try:
-            from app.core.rag.events import RAGEventDispatcher, RAGEvent
+        # Dispatch event for background indexing. Loading the embedding model is
+        # heavy; skip when disabled (e.g. small hosts) so ingestion never OOMs
+        # or times out — records are already committed above, charts still work.
+        from app.core.config import settings
 
-            RAGEventDispatcher.dispatch(
-                RAGEvent.DATASET_COMPLETED, {"dataset_id": dataset_id_str}
-            )
-        except Exception as e_event:
-            logger.error(f"Failed to dispatch RAG completed event: {str(e_event)}")
+        if settings.RAG_INDEXING_ENABLED:
+            try:
+                from app.core.rag.events import RAGEventDispatcher, RAGEvent
+
+                RAGEventDispatcher.dispatch(
+                    RAGEvent.DATASET_COMPLETED, {"dataset_id": dataset_id_str}
+                )
+            except Exception as e_event:
+                logger.error(f"Failed to dispatch RAG completed event: {str(e_event)}")
+        else:
+            logger.info("RAG indexing disabled (RAG_INDEXING_ENABLED=false); skipped.")
 
         logger.info(
             f"Ingestion completed successfully for dataset {dataset_id_str}. Ingested {len(rows)} rows."
