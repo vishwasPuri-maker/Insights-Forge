@@ -1,0 +1,101 @@
+order_id,order_date,customer_id,city,product_category,product_name,quantity,unit_price,total_amount,payment_method
+ORD001,2026-03-04,CUST015,Mumbai,Electronics,Headphones,1,2453,2453,UPI
+ORD002,2026-01-08,CUST006,Mumbai,Sports,Yoga Mat,4,460,1840,UPI
+ORD003,2026-04-18,CUST015,Delhi,Sports,Cricket Bat,2,4664,9328,UPI
+ORD004,2026-03-13,CUST010,Mumbai,Clothing,Jacket,4,2987,11948,UPI
+ORD005,2026-04-02,CUST055,Pune,Electronics,Mouse,4,992,3968,UPI
+ORD006,2026-04-07,CUST006,Bengaluru,Books,Machine Learning,5,1222,6110,Debit Card
+ORD007,2026-01-12,CUST043,Mumbai,Sports,Cricket Bat,2,769,1538,UPI
+ORD008,2026-03-13,CUST030,Hyderabad,Clothing,Jacket,1,3313,3313,Credit Card
+ORD009,2026-06-21,CUST018,Hyderabad,Home & Kitchen,Mixer,3,1916,5748,Credit Card
+ORD010,2026-04-29,CUST025,Pune,Sports,Yoga Mat,2,1538,3076,Debit Card
+ORD011,2026-03-22,CUST026,Pune,Electronics,Headphones,2,462,924,Credit Card
+ORD012,2026-06-17,CUST032,Delhi,Sports,Dumbbells,3,1941,5823,Credit Card
+ORD013,2026-05-24,CUST035,Pune,Home & Kitchen,Storage Box,2,2220,4440,Cash on Delivery
+ORD014,2026-05-11,CUST032,Nagpur,Home & Kitchen,Mixer,2,1333,2666,UPI
+ORD015,2026-06-02,CUST005,Delhi,Clothing,Shoes,2,3658,7316,Cash on Delivery
+ORD016,2026-01-03,CUST044,Hyderabad,Sports,Football,3,4732,14196,Debit Card
+ORD017,2026-04-22,CUST011,Delhi,Home & Kitchen,Mixer,1,2604,2604,Debit Card
+ORD018,2026-01-28,CUST056,Hyderabad,Sports,Cricket Bat,2,4358,8716,Credit Card
+ORD019,2026-05-19,CUST050,Bengaluru,Clothing,T-Shirt,3,1523,4569,Debit Card
+ORD020,2026-04-03,CUST057,Pune,Books,Data Analytics,1,1116,1116,UPI
+ORD021,2026-01-22,CUST047,Delhi,Clothing,T-Shirt,5,845,4225,Credit Card
+ORD022,2026-02-12,CUST017,Bengaluru,Clothing,Shoes,4,4703,18812,Credit Card
+ORD023,2026-04-13,CUST043,Hyderabad,Sports,Cricket Bat,2,2753,5506,Cash on Delivery
+ORD024,2026-03-05,CUST015,Nagpur,Sports,Cricket Bat,4,1191,4764,UPI
+ORD025,2026-05-31,CUST015,Nagpur,Sports,Football,5,2085,10425,UPI
+ORD026,2026-03-26,CUST005,Bengaluru,Clothing,Jeans,1,457,457,Debit Card
+ORD027,2026-02-03,CUST047,Bengaluru,Books,SQL Guide,2,4617,9234,Credit Card
+ORD028,2026-01-25,CUST007,Hyderabad,Books,SQL Guide,4,1759,7036,Debit Card
+ORD029,2026-01-14,CUST044,Hyderabad,Books,Python Basics,4,4025,16100,UPI
+ORD030,2026-03-05,CUST013,Mumbai,Books,SQL Guide,3,1095,3285,Credit Card
+ORD031,2026-04-29,CUST016,Nagpur,Books,SQL Guide,2,2481,4962,UPI
+ORD032,2026-01-24,CUST060,Mumbai,Electronics,Keyboard,5,320,1600,Cash on Delivery
+ORD033,2026-04-13,CUST058,Nagpur,Books,Data Analytics,4,1951,7804,Cash on Delivery
+ORD034,2026-04-27,CUST019,Delhi,Electronics,Smartwatch,4,2372,9488,Credit Card
+ORD035,2026-01-15,CUST038,Hyderabad,Clothing,T-Shirt,3,1983,5949,Debit Card
+ORD036,2026-05-03,CUST033,Bengaluru,Electronics,Keyboard,1,4985,4985,UPI
+ORD037,2026-01-18,CUST039,Nagpur,Sports,Yoga Mat,1,1722,1722,Cash on Delivery
+ORD038,2026-05-29,CUST039,Nagpur,Electronics,Headphones,5,2216,11080,Cash on Delivery
+ORD039,2026-03-22,CUST060,Pune,Sports,Yoga Mat,5,4482,22410,Debit Card
+ORD040,2026-02-03,CUST043,Hyderabad,Clothing,Jacket,3,3442,10326,Cash on Delivery
+ORD041,2026-04-28,CUST040,Bengaluru,Home & Kitchen,Mixer,1,276,276,UPI
+ORD042,2026-03-09,CUST009,Pune,Sports,Football,2,4344,8688,Credit Card
+ORD043,2026-04-23,CUST054,Bengaluru,Home & Kitchen,Lamp,3,1492,4476,UPI
+ORD044,2026-02-04,CUST017,Nagpur,Sports,Football,3,1048,3144,Credit Card
+ORD045,2026-03-29,CUST014,Hyderabad,Home & Kitchen,Lamp,3,1925,5775,Cash on Delivery
+ORD046,2026-06-12,CUST028,Pune,Home & Kitchen,Mixer,1,956,956,UPI
+ORD047,2026-02-11,CUST048,Delhi,Home & Kitchen,Storage Box,2,2345,4690,UPI
+ORD048,2026-05-20,CUST003,Pune,Electronics,Keyboard,1,1421,1421,Cash on Delivery
+ORD049,2026-04-04,CUST058,Nagpur,Clothing,Jacket,1,2725,2725,Credit Card
+ORD050,2026-05-24,CUST057,Delhi,Clothing,Jeans,1,3097,3097,Credit Card
+ORD051,2026-01-07,CUST012,Hyderabad,Clothing,Jacket,2,3577,7154,Cash on Delivery
+ORD052,2026-06-29,CUST007,Delhi,Clothing,T-Shirt,3,1504,4512,Cash on Delivery
+ORD053,2026-03-31,CUST020,Mumbai,Clothing,Jeans,2,3970,7940,UPI
+ORD054,2026-03-13,CUST056,Nagpur,Clothing,Jacket,4,2889,11556,Debit Card
+ORD055,2026-03-26,CUST002,Nagpur,Sports,Cricket Bat,4,4592,18368,Credit Card
+ORD056,2026-01-28,CUST039,Delhi,Sports,Cricket Bat,3,513,1539,Debit Card
+ORD057,2026-01-30,CUST025,Bengaluru,Books,Data Analytics,5,4389,21945,Debit Card
+ORD058,2026-05-14,CUST060,Bengaluru,Electronics,Keyboard,4,213,852,Debit Card
+ORD059,2026-06-09,CUST021,Hyderabad,Books,Python Basics,1,2904,2904,Debit Card
+ORD060,2026-03-25,CUST026,Hyderabad,Sports,Cricket Bat,3,3545,10635,Credit Card
+ORD061,2026-06-23,CUST048,Mumbai,Clothing,Jacket,4,3305,13220,Cash on Delivery
+ORD062,2026-03-15,CUST014,Delhi,Sports,Cricket Bat,1,2689,2689,Cash on Delivery
+ORD063,2026-05-11,CUST031,Hyderabad,Books,Data Analytics,4,1950,7800,UPI
+ORD064,2026-01-24,CUST053,Mumbai,Home & Kitchen,Lamp,5,2945,14725,Credit Card
+ORD065,2026-01-12,CUST016,Delhi,Clothing,T-Shirt,2,400,800,Cash on Delivery
+ORD066,2026-06-28,CUST025,Delhi,Books,SQL Guide,5,1792,8960,Credit Card
+ORD067,2026-04-19,CUST015,Mumbai,Clothing,Shoes,1,1073,1073,UPI
+ORD068,2026-04-27,CUST009,Delhi,Sports,Cricket Bat,2,1194,2388,Cash on Delivery
+ORD069,2026-05-21,CUST029,Mumbai,Sports,Dumbbells,5,3695,18475,Cash on Delivery
+ORD070,2026-05-14,CUST032,Hyderabad,Home & Kitchen,Cookware Set,2,2471,4942,Debit Card
+ORD071,2026-03-02,CUST018,Pune,Books,Machine Learning,1,2540,2540,UPI
+ORD072,2026-04-09,CUST045,Mumbai,Clothing,Jeans,2,2094,4188,UPI
+ORD073,2026-05-19,CUST030,Delhi,Books,Python Basics,4,2910,11640,Credit Card
+ORD074,2026-06-28,CUST002,Bengaluru,Books,SQL Guide,4,4984,19936,Cash on Delivery
+ORD075,2026-04-10,CUST055,Delhi,Electronics,Keyboard,3,2646,7938,Cash on Delivery
+ORD076,2026-05-05,CUST002,Delhi,Clothing,Jacket,3,3770,11310,Cash on Delivery
+ORD077,2026-06-09,CUST035,Nagpur,Clothing,Shoes,4,1245,4980,UPI
+ORD078,2026-04-29,CUST012,Nagpur,Electronics,Mouse,4,1311,5244,Cash on Delivery
+ORD079,2026-03-25,CUST022,Delhi,Home & Kitchen,Lamp,2,3924,7848,Cash on Delivery
+ORD080,2026-01-05,CUST048,Bengaluru,Home & Kitchen,Mixer,1,4052,4052,Debit Card
+ORD081,2026-01-08,CUST016,Mumbai,Clothing,T-Shirt,1,529,529,Credit Card
+ORD082,2026-06-21,CUST008,Bengaluru,Clothing,Jeans,2,4079,8158,Cash on Delivery
+ORD083,2026-06-05,CUST039,Hyderabad,Home & Kitchen,Mixer,3,1574,4722,Credit Card
+ORD084,2026-01-07,CUST060,Pune,Home & Kitchen,Storage Box,1,4940,4940,Cash on Delivery
+ORD085,2026-01-27,CUST045,Pune,Clothing,T-Shirt,1,2189,2189,UPI
+ORD086,2026-06-19,CUST024,Nagpur,Home & Kitchen,Lamp,5,3709,18545,UPI
+ORD087,2026-04-21,CUST024,Hyderabad,Books,SQL Guide,4,1064,4256,Credit Card
+ORD088,2026-06-16,CUST018,Bengaluru,Books,SQL Guide,2,4474,8948,Cash on Delivery
+ORD089,2026-03-24,CUST055,Mumbai,Books,Python Basics,5,2398,11990,Debit Card
+ORD090,2026-05-26,CUST040,Hyderabad,Books,SQL Guide,2,4006,8012,Debit Card
+ORD091,2026-02-16,CUST032,Mumbai,Electronics,Mouse,4,2862,11448,Debit Card
+ORD092,2026-05-23,CUST001,Bengaluru,Home & Kitchen,Cookware Set,3,2463,7389,UPI
+ORD093,2026-05-23,CUST049,Mumbai,Clothing,Shoes,4,4202,16808,Cash on Delivery
+ORD094,2026-03-17,CUST015,Delhi,Books,Data Analytics,1,962,962,Debit Card
+ORD095,2026-05-22,CUST034,Pune,Sports,Dumbbells,3,4076,12228,Debit Card
+ORD096,2026-03-20,CUST017,Mumbai,Home & Kitchen,Mixer,4,2419,9676,Credit Card
+ORD097,2026-06-26,CUST012,Mumbai,Home & Kitchen,Cookware Set,1,4589,4589,Cash on Delivery
+ORD098,2026-06-02,CUST019,Nagpur,Home & Kitchen,Cookware Set,5,4497,22485,Debit Card
+ORD099,2026-03-19,CUST001,Hyderabad,Clothing,Jeans,3,1669,5007,Debit Card
+ORD100,2026-03-16,CUST045,Mumbai,Electronics,Smartwatch,1,4733,4733,UPI
