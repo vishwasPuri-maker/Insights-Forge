@@ -5,6 +5,22 @@ logger = logging.getLogger("apex-rag")
 
 class RAGPipeline:
     def __init__(self):
+        # Building the Retriever loads the sentence-transformer embedding model
+        # (~hundreds of MB RAM). On small hosts that OOMs the process on the
+        # first chat message. When RAG indexing is disabled we skip semantic
+        # retrieval entirely; chat still answers from the factual DB data
+        # summary + the LLM (no embeddings needed).
+        try:
+            from app.core.config import settings
+            if not settings.RAG_INDEXING_ENABLED:
+                logger.info(
+                    "RAG disabled (RAG_INDEXING_ENABLED=false); semantic retrieval off."
+                )
+                self.retriever = None
+                return
+        except Exception:
+            pass
+
         try:
             from app.core.rag.retriever import Retriever
             self.retriever = Retriever()
