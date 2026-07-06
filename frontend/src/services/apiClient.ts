@@ -10,7 +10,9 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 60000,
+  // 120s: a free-tier backend can take ~50s to wake from sleep (cold start);
+  // 60s was too tight and made the first request after idle fail.
+  timeout: 120000,
 });
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {

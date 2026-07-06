@@ -31,6 +31,9 @@ app.add_middleware(
     allow_origins=[
         origin.strip() for origin in settings.BACKEND_CORS_ORIGINS.split(",")
     ],
+    # Allow any Vercel preview/production URL without re-listing each one, so a
+    # new deployment domain never breaks the frontend with a CORS error.
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
