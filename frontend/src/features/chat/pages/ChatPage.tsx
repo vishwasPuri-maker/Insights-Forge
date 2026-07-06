@@ -52,6 +52,10 @@ export const ChatPage: React.FC = () => {
         conversation_id: conversationId || undefined,
         response_mode: responseMode,
         stream: false,
+      }, {
+        // AI inference (plus a possible free-tier cold start) can exceed the
+        // default 60s client timeout; give the chat request more room.
+        timeout: 180000,
       });
 
       const data = response.data;
